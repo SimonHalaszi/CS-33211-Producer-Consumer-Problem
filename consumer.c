@@ -48,9 +48,9 @@ int main() {
     // Seed for RNG
     srand(time(NULL));
 
-    int loop = noOfItems;
+    int loop = 0;
 
-    printf("-CONSUMER PROCESS STARTED-\n");
+    printf("-=-=- Consumer Process Started Going for %d Items -=-=-\n", noOfItems);
 
     // Loop Based on Chapter 5 Slides (Slide 64)
     do {
@@ -64,8 +64,8 @@ int main() {
             // Get the integer from the out index in the shared buffer
             int item = share->buffer[share->out];
 
-            // Pringint consumed
-            printf("Consumed: %d At index: %d\n", item, share->out);
+            // Print the number that got consumed
+            printf("Consumed: %d At Index: %d\n", item, share->out);
 
             // Increment the out variable in a circular queue style
             share->out = (share->out + 1) % bufferSize;
@@ -73,9 +73,11 @@ int main() {
         sem_post(mutex);
         sem_post(empty);
 
-    } while (--loop > 0);
+        ++loop;
 
-    printf("-CONSUMER PROCESS ENDED-\n");
+    } while (loop < noOfItems);
+
+    printf("-=-=- Consumer Process Ended After %d Items -=-=-\n", loop);
 
     // Close the connection this process has to the semaphores
     sem_close(full);

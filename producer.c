@@ -65,27 +65,27 @@ int main() {
     srand(time(NULL));
 
     // Number of items to produce
-    int loop = noOfItems;
+    int loop = 0;
 
-    printf("-PRODUCER PROCESS STARTED-\n");
+    printf("-=-=- Producer Process Started Going for %d Items -=-=-\n", noOfItems);
 
     // Loop Based on Chapter 5 Slides (Slide 64)
     do {
+
+        // Produce a number to add
+        int item = rand() % 100;        
 
         sem_wait(empty);
 
         sleep(rand() % 2);
 
         sem_wait(mutex);
-
-            // Generate a number to add
-            int item = rand() % 100;
             
             // Insert the generated number at the in index of shared buffer
             share->buffer[share->in] = item;
             
             // Print the number that got produced
-            printf("Produced: %d At index: %d\n", item, share->in);
+            printf("Produced: %d At Index: %d\n", item, share->in);
 
             // Increment the in variable in a circular queue style
             share->in = (share->in + 1) % bufferSize;
@@ -93,9 +93,11 @@ int main() {
         sem_post(mutex);
         sem_post(full);
 
-    } while (--loop > 0);
+        ++loop;
 
-    printf("-PRODUCER PROCESS ENDED-\n");
+    } while (loop < noOfItems);
+
+    printf("-=-=- Producer Process Ended After %d Items -=-=-\n", loop);
 
     // Close the connection this process has to the semaphores
     sem_close(full);

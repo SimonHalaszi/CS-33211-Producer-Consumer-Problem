@@ -4,7 +4,7 @@ This project implements the Producer-Consumer problem using two separate process
 
 My implementation is based on the Chapter Five slides (slide 64) and uses two counting semaphores and a binary semaphore.
 
-In total, the producer generates a total of ten items, placing them in a circular buffer with two slots, while the consumer retrieves these items. The semaphores guarantee that the producer waits when the buffer is full and the consumer waits when it is empty, preventing race conditions. A random sleep is also implemented so that the code doesn't complete immediately, this is to make it more "satisfying" to watch, as well as to make it easier to see what step is currently happening.
+In total, the producer generates a total of ten items, placing them in a circular buffer with two slots, while the consumer retrieves these items. The semaphores guarantee that the producer waits when the buffer is full and the consumer waits when it is empty, preventing race conditions. A random sleep is also implemented so that the code doesn't complete immediately, this is to make it more "satisfying" to watch, make it easier to see what step is currently happening, and to introduce some randomness into the turn of events.
 
 All three files are commented in more depth to describe what the program is doing on a line-by-line basis and why certain design choices were made.
 

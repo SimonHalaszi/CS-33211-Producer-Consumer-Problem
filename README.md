@@ -20,6 +20,8 @@ gcc consumer.c -pthread -lrt -o consumer
 
 ## Examples
 
+As you can see in every example the producer never produces more than two items without the consumer consuming atleast one item. And the consumer never consumers more than two items without the producer producing one. Because of the random slepe intervals the two dont work in strict alternating fashion this is by design. So the bounded buffer of two is working as expected and the producer and consumer are executing as expected. You can also see that in each example they both execute ten times each. As that is the amount of items that are in total introduced to the buffer, and also the count that is put on the do while loop. So the examples show that the code is working as expected.
+
 ![image](https://github.com/user-attachments/assets/83f1785e-3c2f-4faf-907a-a6c575dcb3e0)
 
 ![image](https://github.com/user-attachments/assets/82799f8b-f251-41ca-933d-8996841f2457)

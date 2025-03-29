@@ -1,4 +1,4 @@
-#include "common.h"
+#include "common.h" 
 
 int main() {
     // Waiting for the init semaphore to become available

@@ -1,6 +1,7 @@
 #include "common.h" 
 
 int main() {
+    
     // Clean up any persistent semaphores from previous executions, if they are there
     shm_unlink(smobj);
     sem_unlink(fullName);
@@ -9,6 +10,7 @@ int main() {
 
     // Create the init semaphore
     sem_t *initSem = sem_open(initSemName, O_CREAT, 0666, 0);
+    
     if (initSem == SEM_FAILED) {
         perror("Producer: sem_open(initSem) failed");
         return 1;
@@ -16,6 +18,7 @@ int main() {
 
     // Create shared memory object
     int fd = shm_open(smobj, O_CREAT | O_RDWR, 0666);
+    
     if (fd < 0) {
         perror("Producer: shm_open failed");
         return 1;
@@ -29,6 +32,7 @@ int main() {
 
     // Map the shared memory into the process’s address space
     struct table *share = mmap(0, SIZE, PROT_WRITE | PROT_READ, MAP_SHARED, fd, 0);
+    
     if (share == MAP_FAILED) {
         perror("Producer: Mapping Failed");
         return 1;
@@ -67,6 +71,7 @@ int main() {
 
     // Loop Based on Chapter 5 Slides (Slide 64)
     do {
+
         sem_wait(empty);
 
         sleep(rand() % 2);

@@ -1,6 +1,7 @@
 #include "common.h" 
 
 int main() {
+    
     // Waiting for the init semaphore to become available
     sem_t *initSem = NULL;
     while ((initSem = sem_open(initSemName, 0)) == SEM_FAILED) {
@@ -9,12 +10,14 @@ int main() {
 
     // Waiting until the producer signals that shared memory is ready
     sem_wait(initSem);
+    
     // Initialize semaphore no longer needed
     sem_close(initSem);
     sem_unlink(initSemName); 
 
     // Open the existing shared memory object
     int fd = shm_open(smobj, O_CREAT | O_RDWR, 0666);
+    
     if (fd < 0) {
         perror("Consumer: shm_open failed");
         return 1;
@@ -22,6 +25,7 @@ int main() {
 
     // Map the shared memory into the process’s address space
     struct table *share = mmap(0, SIZE, PROT_WRITE | PROT_READ, MAP_SHARED, fd, 0);
+    
     if (share == MAP_FAILED) {
         printf("Consumer: Mapping Failed\n");
         return 1;

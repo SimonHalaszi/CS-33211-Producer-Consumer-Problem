@@ -20,6 +20,8 @@ gcc consumer.c -pthread -lrt -o consumer
 
 ## Examples
 
+As you can see in every example the producer never produces more than two items without the consumer consuming atleast one item. And the consumer never consumers more than two items without the producer producing one. You can also observe that the indexes at which items are produced and consumed is consistent with a circular buffer and eachother. Because of the random sleep intervals the two dont work in strict alternating fashion this is by design. So the bounded buffer of two is working as expected and the producer and consumer are executing as expected. You can also see that in every example they both execute ten times each as that is the amount of items that are in total introduced to the buffer. So the examples show that the code is working as expected.
+
 ![image](https://github.com/user-attachments/assets/83f1785e-3c2f-4faf-907a-a6c575dcb3e0)
 
 ![image](https://github.com/user-attachments/assets/82799f8b-f251-41ca-933d-8996841f2457)
